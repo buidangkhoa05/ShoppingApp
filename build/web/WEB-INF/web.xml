@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>SITE_MAP_FILE_PATH</param-name>
+        <param-value>/WEB-INF/siteMaps.properties</param-value>
+    </context-param>
+    <!--start config filter-->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>khoabd.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>DispatcherFilter</filter-name>
+        <filter-class>khoabd.filter.DispatcherFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>khoabd.filter.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/searchByLastnameController</url-pattern>
+        <url-pattern>/SearchLastnameServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/DeleteAccountServlet</url-pattern>
+        <url-pattern>/UpdateAccountServlet</url-pattern>
+        <url-pattern>/deleteAccountController</url-pattern>
+        <url-pattern>/updateAccountController</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DispatcherFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>khoabd.listener.MyContextServletListener</listener-class>
+    </listener>
+    <!--start define servlet-->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>khoabd.controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchLastnameServlet</servlet-name>
+        <servlet-class>khoabd.controller.SearchLastnameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchLastnameServlet</servlet-name>
+        <url-pattern>/SearchLastnameServlet</url-pattern>
+    </servlet-mapping>
+    <!--start session config-->
+    <session-config>
+        <session-timeout> 30 </session-timeout>
+    </session-config>
+    <!--end session config-->
+    <!--<welcome-file-list>
+        <welcome-file>DispatchController</welcome-file>
+    </welcome-file-list>-->
+    <!--start error page config-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404Page.html</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/505Page.html</location>
+    </error-page>
+    <!--end error page config-->
+    <!--start datasource config-->
+    <resource-ref>
+        <res-ref-name>Database</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <!--end datasource config-->
+</web-app>
