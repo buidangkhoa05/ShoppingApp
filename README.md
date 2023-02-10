@@ -6,5 +6,5 @@ In app:
   - Admin can  manage book and account in app
   
 Technology: 
-  - This web app build by Java web core and JSTL
+  - This web app build by Java web (Servlet)
   - DB is SQL Server
